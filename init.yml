@@ -1,0 +1,47 @@
+---
+ - name: show block devices
+   vars:
+      block_command: lsblk
+   hosts: localhost
+   connection: local
+   gather_facts: yes
+   roles:
+    - list-block-devices
+
+ - name: initialise raspberry pi SD card
+   vars_prompt:
+    - name: "device_name"
+      prompt: "Enter SD block device (WARNING: device will be overwritten): "
+      default: "disk6"
+      private: no
+    - name: "image_path"
+      prompt: "Enter full path to RPi image: " 
+      default: "{{ lookup('env','HOME') }}/Downloads/2019-04-08-raspbian-stretch-lite.img"
+      private: no
+    - name: "configure_wifi"
+      prompt: "Configure wifi (if 'no' subsequent wifi config will be ignored): "
+      default: "yes"
+      private: no
+    - name: "wifi_ssid"
+      prompt: "Enter wifi SSID: " 
+      default: guestwifi
+      private: no
+    - name: "wifi_password"
+      prompt: "Enter wifi password: "
+      default: Password1
+      private: no
+    - name: "ssh_key"
+      prompt: "Enter SSH public key: "
+      default: "ssh-rsa AAAA... user@domain.lan"
+      private: no
+   vars:
+      device_separator: ""
+      device_prefix: ""
+      mount_location: "/tmp/mnt"
+   hosts: localhost
+   connection: local
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   roles:
+    - initialise-sd-card

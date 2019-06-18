@@ -1,0 +1,22 @@
+---
+ - name: change command to list block devices if system is MacOS
+   set_fact:
+      block_command: "diskutil list"
+   when: ansible_distribution == 'MacOSX'
+
+ - name: list block devices
+   command: "{{ block_command }}"
+   register: block_devices
+
+ - name: print block device output to help user locate SD card
+   debug:
+      msg: "{{ block_devices.stdout_lines }}"
+
+ - name: WARNING MESSAGE - PLEASE READ
+   debug:
+      msg: |
+         WARNING: this program can destroy your file system. Please ensure
+         you have the correct device selected for your SD card. If in doubt
+         do not run. On some systems Ansible may require the '-K' switch to
+         supply sudo password and optionally '-U' to specify the user to become.
+
