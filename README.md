@@ -5,7 +5,7 @@ This repo uses Ansible modules to initialise a Raspberry Pi SD card using either
 This works by overloading the `init=` kernel parameter in `/boot/cmdline.txt` to mount volumes in read-write mode and executing a custom script copied to the `/boot` partition. It gets around the fact that the Raspbian `/` partition is `ext4` which cannot be mounted by MacOS without 3rd party software. The `/boot` partition, however, is FAT32 which is supported natively in MacOS. 
 
 
-# Prerequisites
+# Prereqs
 
 - Ansible installed on your local workstation
 - A recent Raspbian image downloaded and the full path noted down
@@ -14,7 +14,7 @@ This works by overloading the `init=` kernel parameter in `/boot/cmdline.txt` to
 - Cloned this repo to your local workstation `git clone https://github.com/dsbutler101/rpi-init.git`
 
 
-# Steps
+# Install Steps
 
 Insert the SD card in to the card reader and plug it in to your Mac. The `/boot` mount point may appear on your desktop if the SD card has been previously formatted with Rasbian. Run the following command from the terminal after cd'ing to the cloned repo directory:
 
