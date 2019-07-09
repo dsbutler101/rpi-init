@@ -1,1 +1,2 @@
-my_init.yml
+*_gitignore
+*.retry
