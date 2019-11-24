@@ -14,6 +14,10 @@
       prompt: "Enter SD block device (WARNING: device will be overwritten): "
       default: "disk6"
       private: no
+    - name: "copy_image"
+      prompt: "Do you want to overwrite with new image? (if 'no' subsequent image file will be ignored)"
+      default: "yes"
+      private: no
     - name: "image_path"
       prompt: "Enter full path to RPi image: " 
       default: "{{ lookup('env','HOME') }}/Downloads/2019-04-08-raspbian-stretch-lite.img"

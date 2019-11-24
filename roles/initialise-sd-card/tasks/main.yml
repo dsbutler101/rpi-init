@@ -12,6 +12,7 @@
 
  - name: copy image to SD card
    command: dd if={{ image_path }} of=/dev/{{ device_name }} bs=4194304
+   when: copy_image == 'yes'
 
  - name: create folder for temporary mount point
    file:
