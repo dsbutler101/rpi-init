@@ -7,7 +7,7 @@ The script can be customised to perform other arbitrary initialisation actions a
 It works by overriding the `init=` kernel parameter in `/boot/cmdline.txt` to mount all volumes in read-write mode and specifies a custom script that is copied to `/boot` and executed on first boot. After the script has run successfully, the script restores the default `/boot/cmdline.txt` configuration and reboots the RPi as normal.
 
 
-# Prerequisites
+# Prereqs
 
 - Ansible installed on your local workstation
 - A recent Raspbian image downloaded and the full path noted down
@@ -16,7 +16,7 @@ It works by overriding the `init=` kernel parameter in `/boot/cmdline.txt` to mo
 - This repo cloned to your Mac `git clone https://github.com/dsbutler101/rpi-init.git`
 
 
-# Steps
+# Install Steps
 
 Plug the SD card in to your Mac. The `/boot` mount point may appear on your desktop if the SD card has been previously formatted with Rasbian (or is otherwise mountable by MacOS). Run the following command from the terminal after cd'ing to the cloned repo directory:
 
