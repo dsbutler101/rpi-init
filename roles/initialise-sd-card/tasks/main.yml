@@ -3,7 +3,7 @@
    set_fact:
       device_separator: s
       device_prefix: r
-      mount_location: /Volumes/boot
+      mount_location: /Volumes/bootfs
    when: ansible_distribution == 'MacOSX'
 
  - name: unmount boot volume on MacOS
@@ -14,51 +14,7 @@
    command: dd if={{ image_path }} of=/dev/{{ device_name }} bs=4194304
    when: copy_image == 'yes'
 
- - name: create folder for temporary mount point
-   file:
-      path: "{{ mount_location }}"
-      state: directory
-   when: ansible_distribution != 'MacOSX'
-
- - name: unmount any volumes that may already be mounted
-   mount:
-      path: "{{ mount_location }}"
-      state: unmounted
-   when: ansible_distribution != 'MacOSX'
-
- - name: mount boot volume from sd card
-   mount:
-      src: "/dev/{{ device_prefix }}{{ device_name }}{{ device_separator }}1"
-      path: "{{ mount_location}}"
-      state: mounted
-      fstype: vfat
-   when: ansible_distribution != 'MacOSX'
-
- - name: update cmdline.txt to change initialisation script run at boot
-   replace:
-      path: "{{ mount_location }}/cmdline.txt"
-      regexp: 'init=/.*'
-      replace: |
-         init=/bin/sh -c -- "/bin/mount -t proc proc /proc; /bin/mount -t sysfs sys /sys; /bin/mount -t tmpfs tmp /run; /bin/mkdir -p /run/systemd; /bin/mount /boot; /bin/mount / -o remount,rw; /boot/install_ssh_key.sh"
-
- - name: touch ssh file to allow ssh access
-   file:
-      path: "{{ mount_location }}/ssh"
-      state: touch
-
- - name: copy wifi configuration file in place
+ - name: copy custom.toml file to boot partition
    template:
-      src: wpa_supplicant.conf
-      dest: "{{ mount_location }}/wpa_supplicant.conf"
-   when: configure_wifi == "yes"
-
- - name: copy script to install ssh key
-   template:
-      src: install_ssh_key.sh
-      dest: "{{ mount_location }}/install_ssh_key.sh"
-
- - name: unmount tmp mnt volume
-   mount:
-      path: "{{ mount_location }}"
-      state: unmounted
-   when: ansible_distribution != 'MacOSX'
+      src: custom.toml
+      dest: "{{ mount_location }}/custom.toml"

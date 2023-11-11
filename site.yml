@@ -20,7 +20,7 @@
       private: no
     - name: "image_path"
       prompt: "Enter full path to RPi image: " 
-      default: "{{ lookup('env','HOME') }}/Downloads/2019-04-08-raspbian-stretch-lite.img"
+      default: "{{ lookup('env','HOME') }}/Downloads/2023-10-10-raspios-bookworm-arm64-lite.img"
       private: no
     - name: "configure_wifi"
       prompt: "Configure wifi (if 'no' subsequent wifi config will be ignored): "

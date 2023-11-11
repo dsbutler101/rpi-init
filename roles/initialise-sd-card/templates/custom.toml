@@ -1,0 +1,20 @@
+[system]
+hostname = "raspberry"
+
+[user]
+name = "pi"
+
+[ssh]
+enabled = true
+authorized_keys = ["{{ ssh_key }}"]
+password_authentication = false
+
+[wlan]
+ssid = "{{ wifi_ssid }}"
+password = "{{ wifi_password }}"
+country = "GB"
+
+[locale]
+# getting error messages logging in via ssh. regenerating UK/US locales fixes this: sudo dpkg-reconfigure locales
+keymap = "en_GB.UTF-8"
+timezone = "Europe/London"
